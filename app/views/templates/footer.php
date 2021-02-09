@@ -53,6 +53,7 @@
                 no_telepon: $('#no_telepon').val(),
             },
             success: (datas) => {
+                $('.flash-data').html(datas);
 
                 $('#nama').val("");
                 $('#tempat_lahir').val("");
@@ -65,7 +66,7 @@
                     url: "<?= BASEURL; ?>/Siswa/getDataAjax",
                     type: "get",
                     success: (data) => {
-                        $('.flash-data').html(datas);
+
                         $('.container-get-data').hide(100, function() {
                             $('.container-get-data').html(data);
                             $('.container-get-data').slideDown(500);

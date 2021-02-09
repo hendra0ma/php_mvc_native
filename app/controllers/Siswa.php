@@ -45,12 +45,24 @@ class Siswa extends Controller
     {
 
         if (isset($_POST)) {
-            if ($this->model('Siswa_model')->tambahDataSiswa($_POST) > 0) {
-                Flasher::setFlash('data berhasil di tambahkan', 'success');
-                Flasher::flash();
-                die;
+            $this->validation->name('nama')->value($_POST['nama'])->required();
+            $this->validation->name('tempat lahir')->value($_POST['tempat_lahir'])->required();
+            $this->validation->name('alamat')->value($_POST['alamat'])->required();
+            $this->validation->name('tanggal lahir')->value($_POST['tanggal_lahir'])->pattern('date_ymd')->required();
+            $this->validation->name('no telepon')->value($_POST['no_telepon'])->required();
+            if ($this->validation->isSuccess()) {
+                if ($this->model('Siswa_model')->tambahDataSiswa($_POST) > 0) {
+                    Flasher::setFlash('data berhasil di tambahkan', 'success');
+                    Flasher::flash();
+                    die;
+                } else {
+                    Flasher::setFlash('data Gagal di tambahkan', 'danger');
+                    Flasher::flash();
+                    die;
+                }
             } else {
-                Flasher::setFlash('data Gagal di tambahkan', 'danger');
+
+                Flasher::setFlash($this->validation->displayErrors(), 'danger');
                 Flasher::flash();
                 die;
             }
@@ -58,15 +70,26 @@ class Siswa extends Controller
     }
     public function update()
     {
-
         if (isset($_POST)) {
-            if ($this->model('Siswa_model')->editDataSiswa($_POST) > 0) {
-                Flasher::setFlash('data berhasil di Edit', 'success');
-                header("Location:" . BASEURL . "/Siswa/index");
-                die;
+            $this->validation->name('nama')->value($_POST['nama'])->required();
+            $this->validation->name('tempat lahir')->value($_POST['tempat_lahir'])->required();
+            $this->validation->name('alamat')->value($_POST['alamat'])->required();
+            $this->validation->name('tanggal lahir')->value($_POST['tanggal_lahir'])->pattern('date_ymd')->required();
+            $this->validation->name('no telepon')->value($_POST['no_telepon'])->required();
+            if ($this->validation->isSuccess()) {
+                if ($this->model('Siswa_model')->editDataSiswa($_POST) > 0) {
+                    Flasher::setFlash('data berhasil di Edit', 'success');
+                    $this->redirect('Siswa/index');
+                    die;
+                } else {
+                    Flasher::setFlash('data Gagal di edit', 'danger');
+                    $this->redirect('Siswa/index');
+                    die;
+                }
             } else {
-                Flasher::setFlash('data Gagal di edit', 'danger');
-                header("Location:" . BASEURL . "/Siswa/index");
+
+                Flasher::setFlash($this->validation->displayErrors(), 'danger');
+                $this->redirect('Siswa/index');
                 die;
             }
         }
@@ -75,11 +98,11 @@ class Siswa extends Controller
     {
         if ($this->model('Siswa_model')->deleteSiswa($id) > 0) {
             Flasher::setFlash('data berhasil di hapus', 'success');
-            header("Location:" . BASEURL . "/Siswa/index");
+            $this->redirect('Siswa/index');
             die;
         } else {
             Flasher::setFlash('data Gagal di hapus', 'danger');
-            header("Location:" . BASEURL . "/Siswa/index");
+            $this->redirect('Siswa/index');
             die;
         }
     }
