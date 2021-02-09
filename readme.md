@@ -3,7 +3,7 @@
 Fitur sudah lengkap CRUD + Search ;
 Untuk search dan tambah data menggunakan ajax jquery
 
-# cara menggunakan 
+## cara menggunakan 
 
 - clone dulu repository ini ke folder htdocs
 - konfigurasi BASEURL nya di folder app/config/config.php
