@@ -1,5 +1,7 @@
 <div class="container mt-3">
 
+
+
     <div class="row mb-1">
         <div class="col-6">
             <!-- Button trigger modal -->
@@ -30,7 +32,7 @@
                     <li class="list-group-item ">
                         <?= $siswa['nama'] ?>
                         <a href="<?= BASEURL; ?>/Siswa/detail/<?= $siswa['id'] ?>" class='badge badge-primary float-right ml-1'>detail</a>
-                        <a href="#editmodal" data-toggle="modal" data-id="<?= $siswa['id'] ?>" class='badge badge-dark float-right ml-1 edit'>edit</a>
+                        <a href="#formModal" data-toggle="modal" data-id="<?= $siswa['id'] ?>" class='badge badge-dark float-right ml-1 edit'>edit</a>
 
                         <a href="<?= BASEURL; ?>/Siswa/delete/<?= $siswa['id'] ?>" class='badge badge-danger float-right' onclick="return confirm('hapus data?')">delete</a>
                     </li>
@@ -40,58 +42,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="editmodal" tabindex="-1" aria-labelledby="editmodaltitle" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editmodaltitle">Edit</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="<?= BASEURL; ?>/Siswa/update" method="post">
-                <input type="hidden" name="id" id="edit_id">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="edit_nama">Nama</label>
-                        <input type="text" class="form-control" id="edit_nama" placeholder="nama" name="nama">
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_tempat_lahir">tempat lahir</label>
-                        <input type="text" class="form-control" id="edit_tempat_lahir" placeholder="tempat_lahir" name="tempat_lahir">
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_tanggal_lahir">Tanggal Lahir</label>
-                        <input type="date" class="form-control" id="edit_tanggal_lahir" placeholder="tanggal_lahir" name="tanggal_lahir">
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_Agama">Agama</label>
-                        <select id="edit_agama" name="agama" class="form-control">
-                            <option value="islam">islam</option>
-                            <option value="kristen">kristen</option>
-                            <option value="hindu">hindu</option>
-                            <option value="buddha">buddha</option>
-                            <option value="konghucu">konghucu</option>
-                            <option value="Tidak ada">Tidak ada</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_alamat">alamat</label>
-                        <input type="text" class="form-control" id="edit_alamat" placeholder="alamat" name="alamat">
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_no_telepon">No telepon</label>
-                        <input type="number" class="form-control" id="edit_no_telepon" placeholder="no_telepon" name="no_telepon">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary edit">Edit</button>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
 
 
 
@@ -105,7 +55,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form>
+            <form method="post">
+                <input type="hidden" name="id">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="nama">Nama</label>
@@ -141,7 +92,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary tambah" data-dismiss="modal">Tambah</button>
+                    <!-- <button type="button" class="btn btn-primary form-modal" data-dismiss="modal">Tambah</button> -->
+                    <input type="submit" value="" class="btn btn-primary form-modal">
             </form>
         </div>
     </div>

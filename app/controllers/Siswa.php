@@ -23,7 +23,8 @@ class Siswa extends Controller
                 Flasher::setFlash("Data yang anda cari kosong", "danger");
                 Flasher::flash();
             }
-            $this->views('siswa/getdata', $data);
+            // $this->views('siswa/getdata', $data);
+            echo json_encode($data['siswa']);
         }
     }
 
@@ -53,23 +54,24 @@ class Siswa extends Controller
             if ($this->validation->isSuccess()) {
                 if ($this->model('Siswa_model')->tambahDataSiswa($_POST) > 0) {
                     Flasher::setFlash('data berhasil di tambahkan', 'success');
-                    Flasher::flash();
+                    $this->redirect('Siswa/index');
                     die;
                 } else {
                     Flasher::setFlash('data Gagal di tambahkan', 'danger');
-                    Flasher::flash();
+                    $this->redirect('Siswa/index');
                     die;
                 }
             } else {
 
                 Flasher::setFlash($this->validation->displayErrors(), 'danger');
-                Flasher::flash();
+                $this->redirect('Siswa/index');
                 die;
             }
         }
     }
     public function update()
     {
+
         if (isset($_POST)) {
             $this->validation->name('nama')->value($_POST['nama'])->required();
             $this->validation->name('tempat lahir')->value($_POST['tempat_lahir'])->required();
