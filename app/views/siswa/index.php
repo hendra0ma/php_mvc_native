@@ -20,7 +20,7 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Search nama" id="query">
                 <div class="input-group-append">
-                    <button class="btn btn-primary" type="button" id="cari">Button</button>
+                    <button class="btn btn-primary" type="button" id="cari">Cari</button>
                 </div>
             </div>
 
