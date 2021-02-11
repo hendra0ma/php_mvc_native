@@ -3,7 +3,7 @@
 
 
     <div class="row mb-1">
-        <div class="col-6">
+        <div class="col-md-6">
             <!-- Button trigger modal -->
             <div class="flash-data">
                 <?php Flasher::flash(); ?>
@@ -17,16 +17,30 @@
     </div>
 
     <div class="row mt-2">
-        <div class="col-6">
 
+        <div class="col-md-6">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Search nama" id="query">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="button" id="cari">Cari</button>
                 </div>
             </div>
+            <div class="row">
 
-            <h3>Daftar Siswa</h3>
+                <div class="col-md-8">
+                    <h3>Daftar Siswa</h3>
+                </div>
+                <div class="col-md-4 form-short-data">
+                    <?php if (!empty($data['siswa'])) : ?>
+                        <b class='mt-2 mb-2'> Urutkan Data </b>
+                        <form><select name="sort-data" id="short-data" class="form-group form-control">
+                                <option value="az">A - Z</option>
+                                <option value="za">Z - A</option>
+                            </select></form>
+                    <?php endif; ?>
+                </div>
+            </div>
+
             <ul class="list-group mt-4 container-get-data">
                 <?php foreach ($data['siswa'] as $siswa) : ?>
                     <li class="list-group-item ">

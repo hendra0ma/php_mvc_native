@@ -12,6 +12,16 @@ class Siswa_model
         $this->db->query('SELECT * FROM ' . $this->table);
         return $this->db->resultSet();
     }
+    public function getSiswaByOrder($data)
+    {
+        if ($data['short'] == "az") {
+            $this->db->query('SELECT * FROM is_siswa ORDER BY nama ASC');
+        } else {
+            $this->db->query('SELECT * FROM is_siswa ORDER BY nama DESC');
+        }
+
+        return $this->db->resultSet();
+    }
     public function getsiswaLike($data)
     {
         $query = $data['query'];

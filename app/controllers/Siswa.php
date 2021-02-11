@@ -25,6 +25,16 @@ class Siswa extends Controller
             }
             // $this->views('siswa/getdata', $data);
             echo json_encode($data['siswa']);
+            die;
+        }
+    }
+    public function shortData()
+    {
+        if (isset($_POST)) {
+            $data['siswa'] = $this->model('Siswa_model')->getSiswaByOrder($_POST);
+            // $this->views('siswa/getdata', $data);
+            echo json_encode($data['siswa']);
+            die;
         }
     }
 

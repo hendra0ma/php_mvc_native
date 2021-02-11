@@ -1,10 +1,8 @@
 <script src="<?= BASEURL; ?>/assets/js/bootstrap.js"></script>
 <script src="<?= BASEURL; ?>/assets/js/bootstrap.js.map"></script>
 <script>
-    $(document).on('click', ".badge.badge-danger.float-right.ml-1.delete", () => {
-        console.log($('input[name=id]').val());
-    });
     $(document).on('click', ".badge.badge-dark.float-right.ml-1.edit", function() {
+
         $('form#form-modal').attr("action", "<?= BASEURL; ?>/Siswa/update");
         $('.btn.btn-primary.form-modal').val("Edit");
         $('#judulModal').html("Edit Data Siswa");
@@ -58,22 +56,24 @@
             },
             dataType: "json",
             success: (data) => {
+                $('ul.list-group.mt-4.container-get-data').removeClass("text-light");
+                if (data.length !== 0) {
+                    $('#query').val("");
+                    $('.container-get-data').empty()
+                    $('.container-get-data').hide(100, function() {
+                        $.each(data, function(i, item) {
+                            $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
+                        });
 
-                $('#query').val("");
-                $('.container-get-data').empty()
-                $.each(data, function(i, item) {
-                    $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
-                });
-                $('.container-get-data').hide(100, function() {
-
-
-                    $('.container-get-data').slideDown(500);
-                });
+                        $('.container-get-data').slideDown(500);
+                    });
+                }
             },
-            error: function(xhr, ajaxOptions, thrownError) {
-                $('.container-get-data').empty()
-                $('.container-get-data').append(xhr.responseText);
+            error: function(xhr) {
+                $('.container-get-data').empty();
+                $('ul.list-group.mt-4.container-get-data').addClass("text-light");
                 $('.container-get-data').hide(100, function() {
+                    $('.container-get-data').append(xhr.responseText);
                     $('.container-get-data').slideDown(500);
                 });
 
@@ -97,7 +97,11 @@
                 no_telepon: $('#no_telepon').val(),
             },
             success: (datas) => {
-                $('.flash-data').html(datas);
+                $('.flash-data').empty();
+                $('.flash-data').hide(100, function() {
+                    $('.flash-data').html(datas);
+                    $('.flash-data').slideDown(500)
+                });
 
                 $('#nama').val("");
                 $('#tempat_lahir').val("");
@@ -111,15 +115,19 @@
                     type: "get",
                     dataType: "json",
                     success: (data) => {
+                        $('.col-md-4.form-short-data').empty();
+                        $('ul.list-group.mt-4.container-get-data').removeClass("text-light");
+
 
                         $('#query').val("");
                         $('.container-get-data').empty()
-                        $.each(data, function(i, item) {
-                            $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
-                        });
+
                         $('.container-get-data').hide(100, function() {
+                            $('.col-md-4.form-short-data').append('<b class="mt-2 mb-2"> Urutkan Data </b><form><select name="sort-data" id="short-data" class="form-group form-control"><option value="az">A - Z</option><option value="za">Z - A</option></select></form>');
+                            $.each(data, function(i, item) {
+                                $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
 
-
+                            });
                             $('.container-get-data').slideDown(500);
                         });
                     }
@@ -142,7 +150,11 @@
                 no_telepon: $('#no_telepon').val(),
             },
             success: (datas) => {
-                $('.flash-data').html(datas);
+                $('.flash-data').empty();
+                $('.flash-data').hide(100, function() {
+                    $('.flash-data').html(datas);
+                    $('.flash-data').slideDown(500)
+                });
                 $('input[name=id]').val("");
                 $('#nama').val("");
                 $('#tempat_lahir').val("");
@@ -156,18 +168,42 @@
                     type: "get",
                     dataType: "json",
                     success: (data) => {
-
+                        $('ul.list-group.mt-4.container-get-data').removeClass("text-light");
                         $('#query').val("");
                         $('.container-get-data').empty()
-                        $.each(data, function(i, item) {
-                            $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
-                        });
+
                         $('.container-get-data').hide(100, function() {
 
-
+                            $.each(data, function(i, item) {
+                                $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
+                            });
                             $('.container-get-data').slideDown(500);
                         });
                     }
+                });
+            }
+        });
+    });
+
+    $(document).on('change', 'select.form-group.form-control', () => {
+        let data = $('select.form-group.form-control').val();
+        $.ajax({
+            url: "<?= BASEURL ?>/Siswa/shortData",
+            type: "post",
+            data: {
+                short: data,
+            },
+            dataType: "json",
+            success: (data) => {
+                $('ul.list-group.mt-4.container-get-data').removeClass("text-light");
+                $('.container-get-data').empty()
+
+                $('.container-get-data').hide(100, function() {
+
+                    $.each(data, function(i, item) {
+                        $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
+                    });
+                    $('.container-get-data').slideDown(500);
                 });
             }
         });
