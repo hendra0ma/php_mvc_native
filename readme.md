@@ -1,7 +1,7 @@
 # CRUD PHP MVC NATIVE
 
-Fitur sudah lengkap CRUD + Search ;
-Fitur cru (Create , Read , Update ) + Search sudah menggunakan ajax , Untuk fitur delete masih belum menggunakan ajax
+Fitur sudah lengkap CRUD + Search ,
+Fitur CRU (Create , Read , Update ) + Search sudah menggunakan ajax , Untuk fitur delete masih belum menggunakan ajax
 
 ## cara menggunakan 
 
