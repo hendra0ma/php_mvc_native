@@ -14,6 +14,4 @@ Untuk search dan tambah data menggunakan ajax jquery
 
 
 ## validation
-```html
-
 klik link ini untuk melihat repository dari validasinya <a href="https://github.com/davidecesarano/Validation">official validation</a>
