@@ -33,8 +33,7 @@
                         <?= $siswa['nama'] ?>
                         <a href="<?= BASEURL; ?>/Siswa/detail/<?= $siswa['id'] ?>" class='badge badge-primary float-right ml-1'>detail</a>
                         <a href="#formModal" data-toggle="modal" data-id="<?= $siswa['id'] ?>" class='badge badge-dark float-right ml-1 edit'>edit</a>
-
-                        <a href="<?= BASEURL; ?>/Siswa/delete/<?= $siswa['id'] ?>" class='badge badge-danger float-right' onclick="return confirm('hapus data?')">delete</a>
+                        <a href="<?= BASEURL; ?>/Siswa/delete/<?= $siswa['id'] ?>" class='badge badge-danger float-right ml-1'>hapus</a>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -55,7 +54,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post">
+            <form method="post" id="form-modal">
                 <input type="hidden" name="id">
                 <div class="modal-body">
                     <div class="form-group">
@@ -93,7 +92,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <!-- <button type="button" class="btn btn-primary form-modal" data-dismiss="modal">Tambah</button> -->
-                    <input type="submit" value="" class="btn btn-primary form-modal">
+                    <input type="button" value="" data-dismiss="modal" class="btn btn-primary form-modal">
             </form>
         </div>
     </div>

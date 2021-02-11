@@ -13,7 +13,7 @@ class Siswa extends Controller
     public function getDataAjax()
     {
         $data['siswa'] = $this->model('Siswa_model')->getsiswa();
-        $this->views('siswa/getdata', $data);
+        echo json_encode($data['siswa']);
     }
     public function cari()
     {
@@ -54,17 +54,20 @@ class Siswa extends Controller
             if ($this->validation->isSuccess()) {
                 if ($this->model('Siswa_model')->tambahDataSiswa($_POST) > 0) {
                     Flasher::setFlash('data berhasil di tambahkan', 'success');
-                    $this->redirect('Siswa/index');
+                    Flasher::flash();
+                    // $this->redirect('Siswa/index');
                     die;
                 } else {
                     Flasher::setFlash('data Gagal di tambahkan', 'danger');
-                    $this->redirect('Siswa/index');
+                    Flasher::flash();
+                    // $this->redirect('Siswa/index');
                     die;
                 }
             } else {
 
                 Flasher::setFlash($this->validation->displayErrors(), 'danger');
-                $this->redirect('Siswa/index');
+                Flasher::flash();
+                // $this->redirect('Siswa/index');
                 die;
             }
         }
@@ -81,17 +84,20 @@ class Siswa extends Controller
             if ($this->validation->isSuccess()) {
                 if ($this->model('Siswa_model')->editDataSiswa($_POST) > 0) {
                     Flasher::setFlash('data berhasil di Edit', 'success');
-                    $this->redirect('Siswa/index');
+                    Flasher::flash();
+                    // $this->redirect('Siswa/index');
                     die;
                 } else {
                     Flasher::setFlash('data Gagal di edit', 'danger');
-                    $this->redirect('Siswa/index');
+                    Flasher::flash();
+                    // $this->redirect('Siswa/index');
                     die;
                 }
             } else {
 
                 Flasher::setFlash($this->validation->displayErrors(), 'danger');
-                $this->redirect('Siswa/index');
+                Flasher::flash();
+                // $this->redirect('Siswa/index');
                 die;
             }
         }
@@ -100,10 +106,12 @@ class Siswa extends Controller
     {
         if ($this->model('Siswa_model')->deleteSiswa($id) > 0) {
             Flasher::setFlash('data berhasil di hapus', 'success');
+            // Flasher::flash();
             $this->redirect('Siswa/index');
             die;
         } else {
             Flasher::setFlash('data Gagal di hapus', 'danger');
+            // Flasher::flash();
             $this->redirect('Siswa/index');
             die;
         }
