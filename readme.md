@@ -1,7 +1,7 @@
 # CRUD PHP MVC NATIVE
 
-Fitur sudah lengkap CRUD + Search ;
-Untuk search dan tambah data menggunakan ajax jquery
+Fitur sudah lengkap CRUD + Search ,
+Fitur CRU (Create , Read , Update ) + Search sudah menggunakan ajax , Untuk fitur delete masih belum menggunakan ajax
 
 ## cara menggunakan 
 
@@ -14,6 +14,4 @@ Untuk search dan tambah data menggunakan ajax jquery
 
 
 ## validation
-```html
-
 klik link ini untuk melihat repository dari validasinya <a href="https://github.com/davidecesarano/Validation">official validation</a>
