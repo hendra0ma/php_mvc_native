@@ -1,18 +1,28 @@
 <div class="container mt-3">
 
 
-
-    <div class="row mb-1">
+    <div class="row">
         <div class="col-md-6">
-            <!-- Button trigger modal -->
             <div class="flash-data">
                 <?php Flasher::flash(); ?>
             </div>
+        </div>
+    </div>
+    <div class="row mb-1">
+
+        <div class="col-md-4">
+            <!-- Button trigger modal -->
 
             <button type="button" class="btn btn-primary tambah-data" data-toggle="modal" data-target="#formModal">
                 Tambah Data Siswa
             </button>
             <br>
+        </div>
+        <div class="col-md-2 text-right">
+
+            <button type="button" class="btn btn-primary reload-data">
+                Reload Data
+            </button>
         </div>
     </div>
 
@@ -47,17 +57,13 @@
                         <?= $siswa['nama'] ?>
                         <a href="<?= BASEURL; ?>/Siswa/detail/<?= $siswa['id'] ?>" class='badge badge-primary float-right ml-1'>detail</a>
                         <a href="#formModal" data-toggle="modal" data-id="<?= $siswa['id'] ?>" class='badge badge-dark float-right ml-1 edit'>edit</a>
-                        <a href="<?= BASEURL; ?>/Siswa/delete/<?= $siswa['id'] ?>" class='badge badge-danger float-right ml-1'>hapus</a>
+                        <a href="#" data-id="<?= $siswa['id'] ?>" class='badge badge-danger float-right ml-1 hapus'>hapus</a>
                     </li>
                 <?php endforeach; ?>
             </ul>
         </div>
     </div>
 </div>
-
-
-
-
 <!-- Modal -->
 <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true">
     <div class="modal-dialog">

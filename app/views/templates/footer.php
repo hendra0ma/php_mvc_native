@@ -1,6 +1,55 @@
 <script src="<?= BASEURL; ?>/assets/js/bootstrap.js"></script>
 <script src="<?= BASEURL; ?>/assets/js/bootstrap.js.map"></script>
+
+
+
+
 <script>
+    $(document).on('click', ".badge.badge-danger.float-right.ml-1.hapus", function() {
+        let confirm;
+        confirm = window.confirm('Yakin akan di hapus?');
+        if (confirm == true) {
+            const id = $(this).data('id');
+            $.ajax({
+                url: "<?= BASEURL; ?>/Siswa/delete",
+                data: {
+                    id: id,
+                },
+                type: "POST",
+                success: function(dataFlash) {
+                    $('.flash-data').hide(100, function() {
+                        $('.flash-data').html(dataFlash);
+                        $('.flash-data').fadeIn(500)
+                    });
+                    $.ajax({
+
+                        url: "<?= BASEURL; ?>/Siswa/getDataAjax",
+                        type: "get",
+                        dataType: "json",
+                        success: (data) => {
+                            $('.col-md-4.form-short-data').empty();
+                            $('ul.list-group.mt-4.container-get-data').removeClass("text-light");
+                            $('#query').val("");
+                            $('.container-get-data').empty()
+                            $('.container-get-data').hide(100, function() {
+                                $('.col-md-4.form-short-data').append('<b class="mt-2 mb-2"> Urutkan Data </b><form><select name="sort-data" id="short-data" class="form-group form-control"><option value="az">A - Z</option><option value="za">Z - A</option></select></form>');
+                                $.each(data, function(i, item) {
+                                    $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='#'data-id='" + data[i].id + "'class='badge badge-danger float-right ml-1 hapus'>hapus</a></li>");
+                                });
+                                $('.container-get-data').fadeIn(500);
+                            });
+                        }
+                    });
+                }
+            });
+        } else {
+            $('.flash-data').hide(100, function() {
+                $('.flash-data').html('<div class="alert alert-danger alert-dismissible fade show" role="alert">Anda Tidak menghapus data<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+                $('.flash-data').fadeIn(500)
+            });
+        }
+
+    });
     $(document).on('click', ".badge.badge-dark.float-right.ml-1.edit", function() {
 
         $('form#form-modal').attr("action", "<?= BASEURL; ?>/Siswa/update");
@@ -9,7 +58,7 @@
         $('.btn.btn-primary.form-modal').addClass("tombol-edit");
         $('.btn.btn-primary.form-modal').removeClass("tombol-tambah");
         const id = $(this).data('id');
-        console.log(id);
+        // console.log(id);
         $('input[name=id]').val(id);
         $.ajax({
             url: "<?= BASEURL; ?>/Siswa/getById",
@@ -62,10 +111,10 @@
                     $('.container-get-data').empty()
                     $('.container-get-data').hide(100, function() {
                         $.each(data, function(i, item) {
-                            $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
+                            $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='#'data-id='" + data[i].id + "'class='badge badge-danger float-right ml-1 hapus'>hapus</a></li>");
                         });
 
-                        $('.container-get-data').slideDown(500);
+                        $('.container-get-data').fadeIn(500);
                     });
                 }
             },
@@ -74,7 +123,7 @@
                 $('ul.list-group.mt-4.container-get-data').addClass("text-light");
                 $('.container-get-data').hide(100, function() {
                     $('.container-get-data').append(xhr.responseText);
-                    $('.container-get-data').slideDown(500);
+                    $('.container-get-data').fadeIn(500);
                 });
 
 
@@ -100,7 +149,7 @@
                 $('.flash-data').empty();
                 $('.flash-data').hide(100, function() {
                     $('.flash-data').html(datas);
-                    $('.flash-data').slideDown(500)
+                    $('.flash-data').fadeIn(500)
                 });
 
                 $('#nama').val("");
@@ -125,10 +174,10 @@
                         $('.container-get-data').hide(100, function() {
                             $('.col-md-4.form-short-data').append('<b class="mt-2 mb-2"> Urutkan Data </b><form><select name="sort-data" id="short-data" class="form-group form-control"><option value="az">A - Z</option><option value="za">Z - A</option></select></form>');
                             $.each(data, function(i, item) {
-                                $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
+                                $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='#'data-id='" + data[i].id + "'class='badge badge-danger float-right ml-1 hapus'>hapus</a></li>");
 
                             });
-                            $('.container-get-data').slideDown(500);
+                            $('.container-get-data').fadeIn(500);
                         });
                     }
                 });
@@ -153,7 +202,7 @@
                 $('.flash-data').empty();
                 $('.flash-data').hide(100, function() {
                     $('.flash-data').html(datas);
-                    $('.flash-data').slideDown(500)
+                    $('.flash-data').fadeIn(500)
                 });
                 $('input[name=id]').val("");
                 $('#nama').val("");
@@ -175,9 +224,9 @@
                         $('.container-get-data').hide(100, function() {
 
                             $.each(data, function(i, item) {
-                                $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
+                                $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='#'data-id='" + data[i].id + "'class='badge badge-danger float-right ml-1 hapus'>hapus</a></li>");
                             });
-                            $('.container-get-data').slideDown(500);
+                            $('.container-get-data').fadeIn(500);
                         });
                     }
                 });
@@ -201,9 +250,39 @@
                 $('.container-get-data').hide(100, function() {
 
                     $.each(data, function(i, item) {
-                        $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='<?= BASEURL; ?>/Siswa/delete/" + data[i].id + "'class='badge badge-danger float-right ml-1'onclick='return confirm('yakin?')'>delete</a></li>");
+                        $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='#'data-id='" + data[i].id + "'class='badge badge-danger float-right ml-1 hapus'>hapus</a></li>");
                     });
-                    $('.container-get-data').slideDown(500);
+                    $('.container-get-data').fadeIn(500);
+                });
+            }
+        });
+    });
+    $(document).on('click', '.btn.btn-primary.reload-data', () => {
+        $('.btn.btn-primary.reload-data').attr('disabled', true);
+        $('.btn.btn-primary.reload-data').addClass('btn-secondary');
+        $('.btn.btn-primary.reload-data').append('<img src="<?= BASEURL; ?>/img/gif/loading.gif" class="img-gif ml-1 rounded-circle"width="20px"height="20px"></img>');
+        setTimeout(() => {
+            $('.btn.btn-primary.reload-data').attr('disabled', false);
+            $('img.img-gif').remove();
+            $('.btn.btn-primary.reload-data').removeClass('btn-secondary');
+
+        }, 5000);
+        $.ajax({
+
+            url: "<?= BASEURL; ?>/Siswa/getDataAjax",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                $('ul.list-group.mt-4.container-get-data').removeClass("text-light");
+                $('#query').val("");
+                $('.container-get-data').empty()
+
+                $('.container-get-data').hide(100, function() {
+
+                    $.each(data, function(i, item) {
+                        $('.container-get-data').append("<li class='list-group-item'>" + data[i].nama + "<a href='<?= BASEURL; ?>/Siswa/detail/" + data[i].id + "'class='badge badge-primary float-right ml-1'>detail</a><a href='#formModal'data-toggle='modal'data-id='" + data[i].id + "'class='badge badge-dark float-right ml-1 edit'>edit</a><a href='#'data-id='" + data[i].id + "'class='badge badge-danger float-right ml-1 hapus'>hapus</a></li>");
+                    });
+                    $('.container-get-data').fadeIn(500);
                 });
             }
         });

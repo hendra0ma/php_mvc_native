@@ -59,6 +59,7 @@ class Siswa extends Controller
             $this->validation->name('nama')->value($_POST['nama'])->required();
             $this->validation->name('tempat lahir')->value($_POST['tempat_lahir'])->required();
             $this->validation->name('alamat')->value($_POST['alamat'])->required();
+            $this->validation->name('agama')->value($_POST['agama'])->required();
             $this->validation->name('tanggal lahir')->value($_POST['tanggal_lahir'])->pattern('date_ymd')->required();
             $this->validation->name('no telepon')->value($_POST['no_telepon'])->required();
             if ($this->validation->isSuccess()) {
@@ -89,6 +90,7 @@ class Siswa extends Controller
             $this->validation->name('nama')->value($_POST['nama'])->required();
             $this->validation->name('tempat lahir')->value($_POST['tempat_lahir'])->required();
             $this->validation->name('alamat')->value($_POST['alamat'])->required();
+            $this->validation->name('agama')->value($_POST['agama'])->required();
             $this->validation->name('tanggal lahir')->value($_POST['tanggal_lahir'])->pattern('date_ymd')->required();
             $this->validation->name('no telepon')->value($_POST['no_telepon'])->required();
             if ($this->validation->isSuccess()) {
@@ -112,18 +114,20 @@ class Siswa extends Controller
             }
         }
     }
-    public function delete($id)
+    public function delete()
     {
-        if ($this->model('Siswa_model')->deleteSiswa($id) > 0) {
-            Flasher::setFlash('data berhasil di hapus', 'success');
-            // Flasher::flash();
-            $this->redirect('Siswa/index');
-            die;
-        } else {
-            Flasher::setFlash('data Gagal di hapus', 'danger');
-            // Flasher::flash();
-            $this->redirect('Siswa/index');
-            die;
+        if (isset($_POST)) {
+            if ($this->model('Siswa_model')->deleteSiswa($_POST['id']) > 0) {
+                Flasher::setFlash('data berhasil di hapus', 'success');
+                Flasher::flash();
+                // $this->redirect('Siswa/index');
+                die;
+            } else {
+                Flasher::setFlash('data Gagal di hapus', 'danger');
+                Flasher::flash();
+                // $this->redirect('Siswa/index');
+                die;
+            }
         }
     }
 }

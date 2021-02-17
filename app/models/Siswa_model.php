@@ -9,7 +9,7 @@ class Siswa_model
     }
     public function getsiswa()
     {
-        $this->db->query('SELECT * FROM ' . $this->table);
+        $this->db->query('SELECT * FROM is_siswa ORDER BY nama ASC');
         return $this->db->resultSet();
     }
     public function getSiswaByOrder($data)
